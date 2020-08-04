@@ -1,20 +1,11 @@
 const express = require("express");
-
 const router = express.Router();
 
-const { User } = require("../models");
+const { UserController } = require('../controllers')
+const { UserValidator } = require('../validators')
 
-router.get('/users', (req, res) => {
-  User.find()
-    .then((respDB) => res.status(200).json(respDB))
-    .catch((err) => console.log(err));
-});
-router.post('/users', (req, res) => {
-  const { body } = req;
-  const newUser = new User(body);
-  newUser.save()
-    .then((respDB) => res.status(201).json(respDB))
-    .catch((err) => console.log(err));
-});
+router.get('/users', UserController.findAll);
+router.get('/users/:id', UserController.findOne)
+router.post('/users', UserValidator.create, UserController.create);
 
 module.exports = router;
