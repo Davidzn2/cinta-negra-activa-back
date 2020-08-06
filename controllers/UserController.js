@@ -1,6 +1,6 @@
 const { User } = require("../models");
 const { UserService } = require("../services");
-const { comparePasswords } = require("../utils")
+const { comparePasswords, createToken } = require("../utils")
 module.exports = {
   findAll: (req, res) => {
     User.find()
@@ -49,7 +49,9 @@ module.exports = {
       if (!user) res.status(400).json({message: 'Email not valid'})
       const isValid = comparePasswords(password, user.password)
       if (!isValid) res.status(400).json({message:'Contraseña incorrecta'})
-      res.status(200).json({message: 'successful login'})
+      const token = createToken(user);
+      if (!token) res.status(500).json({message:'error creating token'})
+      res.status(200).json({message: 'successful login', token})
     } catch (error) {
       res.status(400).json({err: 'error'})
     }
