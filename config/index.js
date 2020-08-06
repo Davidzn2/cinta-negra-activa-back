@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const NODE_ENV = process.env.NODE_ENV || 'STAGING'
+const NODE_ENV = process.env.NODE_ENV || 'staging'
 
 dbData = {
   dbUser: process.env.DB_USER,
@@ -9,13 +9,13 @@ dbData = {
   dbName: process.env.DB_NAME,
 };
 const config = {
-  PRODUCTION:{
+  production:{
     db_url: `mongodb+srv://${dbData.dbUser}:${dbData.dbPassword}@${dbData.dbHost}/${dbData.dbName}?retryWrites=true&w=majority`,
   },
-  STAGING:{
+  staging:{
     db_url: `mongodb+srv://${dbData.dbUser}:${dbData.dbPassword}@${dbData.dbHost}/${dbData.dbName}?retryWrites=true&w=majority`,
   },
-  TEST:{
+  test:{
     db_url: `mongodb+srv://${dbData.dbUser}:${dbData.dbPassword}@${dbData.dbHost}/${dbData.dbName}?retryWrites=true&w=majority`,
   },
 };
